@@ -3,3 +3,4 @@
           background-image: linear-gradient(to right bottom, #33547f, #375083, #404c86, #4b4686, #573f85, #683c87, #7a3888, #8b3286, #a53088, #bf2c86, #d72a82, #ee2a7b);
          
  }
+.mb-4, .my-4{ margin-left:1.5rem!important; }

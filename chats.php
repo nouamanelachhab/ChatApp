@@ -1,14 +1,16 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bubbly - Boootstrap 4 Admin template by Bootstrapious.com</title>
+    <title>UPF Chat</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+       <link rel="stylesheet" href="css/os.css" />
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- Google fonts - Popppins for copy-->
@@ -19,16 +21,21 @@
     <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
+      <link rel="stylesheet" href="css/errors.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.png?3">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" >
+    <link href="st.css" type="text/css" rel="stylesheet" >
+
   </head>
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">We have your soulmate ^_°</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.php" class="navbar-brand font-weight-bold text-uppercase text-base">We have your soulmate ^_°</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           <li class="nav-item">
             <form id="searchForm" class="ml-auto d-none d-lg-block">
@@ -73,6 +80,8 @@
         </ul>
       </nav>
     </header>
+      
+      
     <div class="d-flex align-items-stretch">
       <div id="sidebar" class="sidebar py-3">
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Timeline</div>
@@ -85,10 +94,10 @@
             </div>
           </li></center>
 			
-              <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-like-hand-1 mr-3 text-gray"></i><span>Matching</span></a></li>
-              <li class="sidebar-list-item"><a href="charts.html" class="sidebar-link text-muted"><i class="o-network-1 mr-3 text-gray"></i><span>Chats</span></a></li>
-              <li class="sidebar-list-item"><a href="tables.html" class="sidebar-link text-muted"><i class="o-user-details-1 mr-3 text-gray"></i><span>Friend request</span></a></li>
-              <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-stack-1 mr-3 text-gray"></i><span>settings</span></a></li>
+              <li class="sidebar-list-item"><a href="index.php" class="sidebar-link text-muted "><i class="o-like-hand-1 mr-3 text-gray"></i><span>Matching</span></a></li>
+              <li class="sidebar-list-item"><a href="chats.php" class="sidebar-link text-muted active"><i class="o-network-1 mr-3 text-gray"></i><span>Chats</span></a></li>
+              <li class="sidebar-list-item"><a href="requests.php" class="sidebar-link text-muted"><i class="o-user-details-1 mr-3 text-gray"></i><span>Friend request</span></a></li>
+              <li class="sidebar-list-item"><a href="profile.php" class="sidebar-link text-muted"><i class="o-stack-1 mr-3 text-gray"></i><span>settings</span></a></li>
 			
           <!-- <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span></a>
            <div id="pages" class="collapse">
@@ -100,7 +109,9 @@
               </ul>
             </div>
           </li>-->
-              <li class="sidebar-list-item"><a href="login.html" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a></li>
+			
+			
+              <li class="sidebar-list-item"><a href="login.php" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a></li>
         </ul>
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family"></div>
         
@@ -109,43 +120,92 @@
 		  
 		 
 		
-		 <div class="container-fluid px-xl-5">
-          <section class="py-5">
+		 <div class="container-fluid px-xl-5" >
+             
+             
+             
           
-          </section>
-          <section>
-            <div class="row mb-4">
+          <section class="container-fluid px-xl-5">
+            <div class="container-fluid px-xl-5">
 
-				
-				<?php
-echo"
+			<?php
+include 'friend.php';
+include 'logon.php';
+include 'connectdb.php';
+
+$id = $_SESSION["id"];
+
+/* juste pour le test*/
+$_SESSION["id2"] = 3;
+$id2 = $_SESSION["id2"];
+
+if(isset($_POST['sendmsg']))
+{
+    $hostname = "localhost";
+    $username = "root";
+    $password = "";
+    
+    $databaseName = "users";
+  $connect = mysqli_connect($hostname, $username, $password, $databaseName);
+
+    
+    
+    $message = $_POST['msgcontent'];
+    $date =  date("Y/m/d") ;
+    $time =  date("h:i:sa");
+    if ($message != " ")
+    {
+        $query =" INSERT INTO `messages` (`IdU1`, `IdU2`, `Date`, `contenu`,  `Time`) VALUES ('".$id."', '".$id2."', '".$date."', '".$message."',  '".$time."')";
+        $resu = mysqli_query($connect,$query);
+        
+        if ($resu)
+        {
+        echo "<script>alert(\"inseree\")</script>";
+        }
+        else
+        {
+        echo "<script>alert(\"la variable est nulle\")</script>";
+        }
+        
+        
+    }
+    
+}
 
 
-				
-				
-              <div class="col-lg-5 mb-4 mb-lg-0 pl-lg-0">
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="row align-items-center flex-row">
-                      <div class="col-lg-5">
-						   <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left"><strong class="h5 mb-0">24<sup class="smaller text-gray font-weight-normal">Nov</sup></strong><img src="img/avatar-2.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                      <h6 class="mb-0">john Doe</h6>
-                    </div>
-                        <h2 class="mb-0 d-flex align-items-center"><span>86.4</span><span class="dot bg-green d-inline-block ml-3"></span></h2><span class="text-muted text-uppercase small">matches with you</span>
-                        <hr><small class="text-muted">Add to Crush List</small>
-                      </div>
-                      <div class="col-lg-7">
-                        <canvas class="pieChartHome1"></canvas>
-                      </div>
-                    </div>
-                  </div>
-					
-                </div> 
-              </div>
-				
-		";	?>	
-				
+?>
+			<div class="container-fluid px-xl-5" >
+    <div class="container-fluid px-xl-5" >
+    <div class="msg_history " id = "msg">
+        
+    <script type="text/javascript">
+          
+        function message(){
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET","messages.php",false);
+            xmlhttp.send(null);
+            document.getElementById("msg").innerHTML=xmlhttp.responseText;
+            
+        }
+           message();   
+        setInterval(function(){ message(); }, 2000);
+                 
+        </script>
+        
+         </div>
+        
+         <form class="type_msg" method="post" action="chats.php">
+            <div class="input_msg_write">
+              <input type="text" class="write_msg" placeholder="Type a message" name="msgcontent"/>
+              <button class="msg_send_btn" type="submit" name="sendmsg"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
             </div>
+          </form>
+    </div>
+    
+</div>
+				
+				
+			 
            
           </section>
          
@@ -168,25 +228,32 @@ echo"
 		  
       
 		<div id="sidebar_right" >
+           
+           
+           
+            
+            
 			<div id="base">
     <section style="color: black;">
       <!-- added new div here -->
-  <div class="leftMain"><div id="leftmenu">
-            <div class="titlebox"><div class="text"></div></div>
-	  
-	   <div class="content d-flex flex-column justify-content-between p-4">
-                    
-                    <div class="d-flex justify-content-between align-items-end pt-3">
-                      <div class="text-uppercase">
-						  
-                        <div class="font-weight-bold d-block"><span class="dot bg-green d-inline-block ml-3"></span><img src="img/avatar-2.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0" >jhon_Doa</div><small class="text-gray">online</small>
-                      </div>
-                     
-                    </div>
-                  </div>
+        
+    
+        
+        <script type="text/javascript">
+          
+        function dis(){
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET","online.php",false);
+            xmlhttp.send(null);
+            document.getElementById("sidebar_right").innerHTML=xmlhttp.responseText;
             
-        </div>  
-        </div>
+        }
+           dis();   
+        setInterval(function(){ dis(); }, 5000);
+                 
+        </script>
+        
+        
 				</section>
 		</div>
 		</div>
